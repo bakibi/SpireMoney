@@ -21,7 +21,14 @@ public class Point {
 	@Override
 	public String toString() {
 		String ans="";
-			ans+=date+" "+open+" "+high+" "+low+" "+close+" "+volume+" "+id;
+			ans+= "{";
+			ans+="\"date\":\""+date+"\",";
+			ans+="\"open\":\""+open+"\",";
+			ans+="\"high\":\""+high+"\",";
+			ans+="\"low\":\""+low+"\",";
+			ans+="\"close\":\""+close+"\",";
+			ans+="\"volume\":\""+volume+"\"";
+			ans+="}";
 		return ans;
 	}
 
