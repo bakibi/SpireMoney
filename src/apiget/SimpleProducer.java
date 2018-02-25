@@ -1,13 +1,8 @@
-package kafkaLearning;
+package apiget;
 
-import java.util.Iterator;
 import java.util.Properties;
-import java.util.Scanner;
-import java.util.Vector;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
  
 
 public class SimpleProducer<T,V> {
@@ -34,29 +29,5 @@ public class SimpleProducer<T,V> {
 		return producer;
 	}
 	
-	
-	public static void main(String args[]) {
-		
-		
-			SimpleProducer<String, String> SP  = new SimpleProducer<>();
-			Vector<Point> all = RequestAlpha.request("MSFT", "1min");
-			Iterator<Point> it = all.iterator();
-			SP.active();
-		    try {
-		     
-		      Scanner in = new Scanner(System.in);
-		      while(it.hasNext()) {
-		    	  String msg = it.next()+"";
-		    	  SP.getProducer().send(new ProducerRecord<String, String>("SpireMoney", msg));
-		    	  System.out.println("Sent:" + msg);
-		      }
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		 
-		    } finally {
-		      SP.getProducer().close();
-		    }
-		 
-		  }
 	}
 

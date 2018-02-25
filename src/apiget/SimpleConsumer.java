@@ -1,13 +1,7 @@
-package kafkaLearning;
+package apiget;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Properties;
  
@@ -31,7 +25,7 @@ public class SimpleConsumer<T,V> {
 		    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		    
 		     kafkaConsumer = new KafkaConsumer<>(props);
-		    kafkaConsumer.subscribe(Arrays.asList("SpireMoney"));
+		    kafkaConsumer.subscribe(Arrays.asList("SPireMoney"));
 
 	 }
 	

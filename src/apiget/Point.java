@@ -1,8 +1,9 @@
-package kafkaLearning;
+package apiget;
 
 public class Point {
 	
 	private double open,high,low,close,volume;
+	private int id;
 	private String date;
 	public Point(String date , double open,double high,double low ,double close,double volume) {
 		this.date = date;
@@ -11,16 +12,23 @@ public class Point {
 		this.low = low ;
 		this.close = close;
 		this.volume = volume;
+		id  = 0;
 	}
+	
 	
 	
 	
 	@Override
 	public String toString() {
-		return "Point [open=" + open + ", high=" + high + ", low=" + low + ", close=" + close + ", volume=" + volume
-				+ ", date=" + date + "]";
+		String ans="";
+			ans+=date+" "+open+" "+high+" "+low+" "+close+" "+volume+" "+id;
+		return ans;
 	}
 
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	
 }

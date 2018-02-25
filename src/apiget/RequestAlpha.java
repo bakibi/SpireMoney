@@ -1,4 +1,4 @@
-package kafkaLearning;
+package apiget;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,14 +9,16 @@ import java.util.Vector;
 
 
 
-public class RequestAlpha {
+public class RequestAlpha  {
 
+	
 	public static Vector<Point> request(String Symbole,String time) {
 		Vector<Point> all = new Vector<Point>();
 		
-		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+Symbole+"&interval="+time+"&outputsize=full&apikey=BI8MLA7OT3J6LW18";
+		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+Symbole+"&interval="+time+"&outputsize=compact&apikey=BI8MLA7OT3J6LW18";
 		try {
 			URL a = new URL(uri);
+			
 			URLConnection yc = a.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 	       
@@ -28,7 +30,6 @@ public class RequestAlpha {
 	        	all.add(pt);
 	        }
 	        
-	        System.out.println(all.size());
 	            in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -41,12 +42,17 @@ public class RequestAlpha {
 	
 	
 	
+	
+	
+	
+	
+	
 	private static void read_metatdate(BufferedReader in) {
 		
 		for(int i=0;i<10;i++)
 		{
 			try {
-				String str = in.readLine();
+				in.readLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,6 +107,10 @@ public class RequestAlpha {
 							Double.parseDouble(volume));
 		return p;
 	}
+
+
+
+
 }
 	
 
