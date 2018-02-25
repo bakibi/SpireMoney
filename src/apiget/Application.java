@@ -33,6 +33,7 @@ public class Application {
 			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 			String all = "";
 			String lu;
+			
 			while((lu = in.readLine())!=null)
 				all+=lu;
 			 try {
