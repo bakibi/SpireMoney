@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import org.json.JSONException;
@@ -15,7 +19,30 @@ import org.json.JSONObject;
 
 public class RequestAlpha  {
 
+	private static Map<String,String> registre = new TreeMap<String,String>();
 	
+	public static Point requestLast(String Symbole,String time) {
+		Point ans = null;
+		
+		Vector<Point> res = request(Symbole, time);
+		
+		Collections.sort(res);
+		System.out.println(res.elementAt(0));
+		if(registre.containsKey(Symbole)) {
+			if(registre.get(Symbole).compareTo(res.elementAt(0).getDate()) == 0)
+				return null;
+			registre.remove(Symbole);
+			registre.put(Symbole, res.elementAt(0).getDate());
+			return res.elementAt(0);
+		}
+		else
+		{
+			registre.put(Symbole, res.elementAt(0).getDate());
+			return res.elementAt(0);
+		}
+	
+		
+	}
 	public static Vector<Point> request(String Symbole,String time) {
 		Vector<Point> ans = new Vector<Point>();
 		
@@ -42,7 +69,6 @@ public class RequestAlpha  {
 				while(keys.hasNext()) {
 					 date =(String)keys.next(); 
 					 Point unPoint = getPoint(obj1.getJSONObject(date), date);
-					 System.out.println(unPoint);
 					ans.add(unPoint);
 				}
 				

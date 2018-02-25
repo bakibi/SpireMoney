@@ -25,16 +25,17 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 	@Override
 	public void run() {
 		
-		Vector<Point> companies = RequestAlpha.request(this.nameCompany, this.timeDuration);	
-		Iterator<Point> it = companies.iterator();
-		System.out.println(companies.size()+" "+this.nameCompany);
+		Point companies = RequestAlpha.requestLast(this.nameCompany, this.timeDuration);	
+		
+		if(companies == null)
+			return ;
 	    try {
-	      while(it.hasNext()) {
-	    	  Point now = it.next();
-	    	  now.setId(this.Companyid);
-	    	  String msg = now+"";
+	     
+	    	 
+	    	companies.setId(this.Companyid);
+	    	  String msg = companies+"";
 	    	  this.prod.send(new ProducerRecord<U, V>(topicName, (V) msg));
-	      }
+	      
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }

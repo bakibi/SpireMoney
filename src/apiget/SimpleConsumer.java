@@ -49,7 +49,7 @@ public class SimpleConsumer<T,V> {
 		connexion.ConnectToMongoDb();
 		connexion.retrieve();
 		
-		 /*   while (true) {
+		    while (true) {
 		      ConsumerRecords<String, String> records = SC.getConsumer().poll(100);
 		      for (ConsumerRecord<String, String> record : records) {
 		        System.out.printf("offset = %d, value = %s", record.offset(), record.value());
@@ -70,7 +70,7 @@ public class SimpleConsumer<T,V> {
 				}
 		        System.out.println();
 		      }
-		    }*/
+		    }
 		 
 		  }
 	

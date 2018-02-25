@@ -20,7 +20,7 @@ public class Application {
 		app.attack_one_time();
 		//app.attack_per_minute();
 		
-		//RequestAlpha.request("AAPL", "1min");
+		//RequestAlpha.requestLast("AAPL", "1min");
 	}
 
 }
