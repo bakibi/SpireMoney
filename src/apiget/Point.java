@@ -27,7 +27,8 @@ public class Point {
 			ans+="\"high\":\""+high+"\",";
 			ans+="\"low\":\""+low+"\",";
 			ans+="\"close\":\""+close+"\",";
-			ans+="\"volume\":\""+volume+"\"";
+			ans+="\"volume\":\""+volume+"\",";
+			ans+="\"id_company\":\""+id+"\"";
 			ans+="}";
 		return ans;
 	}

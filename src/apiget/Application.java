@@ -16,11 +16,11 @@ import org.json.JSONObject;
 public class Application {
 
 	public static void main(String[] args)  {
-		//ApiAttacker app = new ApiAttacker("SPireMoney");
-		//app.attack_one_time();
+		ApiAttacker app = new ApiAttacker("SpireMoney");
+		app.attack_one_time();
 		//app.attack_per_minute();
 		
-		RequestAlpha.request("AAPL", "1min");
+		//RequestAlpha.request("AAPL", "1min");
 	}
 
 }
