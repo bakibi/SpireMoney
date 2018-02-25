@@ -1,6 +1,5 @@
 package apiget;
 
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,17 +55,7 @@ public class Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-=======
-public class Application {
 
-	public static void main(String[] args) {
-		ApiAttacker app = new ApiAttacker("SPireMoney");
-		//app.attack_one_time();
-		app.attack_per_minute();
-
->>>>>>> 12e9e60ccb56495d068a5b434efc35a712342960
 	}
 
 }

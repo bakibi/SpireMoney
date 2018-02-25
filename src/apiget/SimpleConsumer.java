@@ -24,12 +24,9 @@ public class SimpleConsumer<T,V> {
 		    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		    
-		     kafkaConsumer = new KafkaConsumer<>(props);
-<<<<<<< HEAD
-		    kafkaConsumer.subscribe(Arrays.asList("SPireMoney"));
-=======
+
 		    kafkaConsumer.subscribe(Arrays.asList("SpireMoney"));
->>>>>>> 12e9e60ccb56495d068a5b434efc35a712342960
+
 
 	 }
 	
