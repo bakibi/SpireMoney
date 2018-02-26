@@ -19,9 +19,12 @@ public class Application {
 		//ApiAttacker app = new ApiAttacker("SpireMoney");
 		//app.attack_one_time();
 		//app.attack_per_minute();
+		while(true) {
 		
-		//RequestAlpha.requestLast("AAPL", "1min");
-		RequestAlpha.requestHistrory("AAPL");
+		
+		System.out.println(RequestAlpha.requestLast("AAPL", "1min"));
+		}
+		//RequestAlpha.requestHistrory("AAPL");
 	}
 
 }

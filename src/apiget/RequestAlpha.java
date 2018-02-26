@@ -27,7 +27,8 @@ public class RequestAlpha  {
 		Vector<Point> res = request(Symbole, time);
 		
 		Collections.sort(res);
-		System.out.println(res.elementAt(0));
+		
+		
 		if(registre.containsKey(Symbole)) {
 			if(registre.get(Symbole).compareTo(res.elementAt(0).getDate()) == 0)
 				return null;
@@ -91,7 +92,9 @@ public class RequestAlpha  {
 		
 		return ans;
 	}
-	
+	/*
+	 * fonction de rand
+	 * */
 	private static double  randoms(double min, double max)
 	{
 	   double range = (max - min);     
@@ -127,7 +130,7 @@ public class RequestAlpha  {
 				while(keys.hasNext()) {
 					 date =(String)keys.next(); 
 					 Point unPoint = getPoint(obj1.getJSONObject(date), date);
-					 System.out.println(unPoint);
+					// System.out.println(unPoint);
 					ans.add(unPoint);
 				}
 				
@@ -151,7 +154,7 @@ public class RequestAlpha  {
 			for(int h=9;h<16;h++)
 			{
 				for(int m=0;m<59;m++) {
-					all.add(new Point(c.getDate()+h+":"+m+":00",
+					all.add(new Point(c.getDate()+" "+h+":"+m+":00",
 							randoms(c.getOpen()-10, c.getOpen()+100),
 							randoms(c.getHigh()-10, c.getHigh()+1000),
 							randoms(c.getLow()-1000, c.getLow()+10),
@@ -159,6 +162,13 @@ public class RequestAlpha  {
 							(int)randoms(c.getVolume()-1000,c.getVolume()+1000 )));
 				}
 			}
+			
+		}
+		
+		
+		Iterator<Point> it = all.iterator();
+		while(it.hasNext()) {
+			System.out.println(it.next());
 		}
 		System.out.println(all.size());
 		return ans;
