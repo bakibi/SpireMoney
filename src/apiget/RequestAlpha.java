@@ -46,7 +46,12 @@ public class RequestAlpha  {
 	public static Vector<Point> request(String Symbole,String time) {
 		Vector<Point> ans = new Vector<Point>();
 		
-		String uri = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+Symbole+"&interval="+time+"&outputsize=compact&apikey=BI8MLA7OT3J6LW18";
+		String uri = "https://www.alphavantage.co/query?"
+				+ "function=TIME_SERIES_INTRADAY&"
+				+ "symbol="+Symbole+"&"
+				+ "interval="+time+"&"
+				+ "outputsize=compact&"
+				+ "apikey=BI8MLA7OT3J6LW18";
 		URL a;
 		try {
 			a = new URL(uri);
@@ -87,16 +92,19 @@ public class RequestAlpha  {
 		return ans;
 	}
 	
+	private static double  randoms(double min, double max)
+	{
+	   double range = (max - min);     
+	   return (Math.random() * range) + min;
+	}
 	
-	
-	public static Vector<Point>requestHistrory(String Symbole){
+	public static Vector<Point> requestHistrory(String Symbole){
 		Vector<Point> ans = new Vector<>();
 		String uri = "https://www.alphavantage.co/query?"
 				+ "function=TIME_SERIES_DAILY&"
 				+ "symbol="+Symbole+"&"
-						//+ "interval=&"
-								+ "outputsize=full&"
-								+ "apikey=BI8MLA7OT3J6LW18";
+				+ "outputsize=full&"
+				+ "apikey=BI8MLA7OT3J6LW18";
 		URL a;
 		try {
 			a = new URL(uri);
@@ -134,7 +142,25 @@ public class RequestAlpha  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		Vector<Point> all = new Vector<Point>();
+		Collections.sort(ans);
+		long limit = ans.size();
+		for(int i = 0;i<limit;i++) {
+			Point c = ans.get(i);
+			for(int h=9;h<16;h++)
+			{
+				for(int m=0;m<59;m++) {
+					all.add(new Point(c.getDate()+h+":"+m+":00",
+							randoms(c.getOpen()-10, c.getOpen()+100),
+							randoms(c.getHigh()-10, c.getHigh()+1000),
+							randoms(c.getLow()-1000, c.getLow()+10),
+							randoms(c.getClose()-100, c.getClose()+1000),
+							(int)randoms(c.getVolume()-1000,c.getVolume()+1000 )));
+				}
+			}
+		}
+		System.out.println(all.size());
 		return ans;
 	}
 	

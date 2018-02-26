@@ -5,6 +5,19 @@ public class Point implements Comparable<Point> {
 	private double open,high,low,close,volume;
 	private int id;
 	private String date;
+	
+
+	public Point(String date , double open,double high,double low ,double close,double volume) {
+		this.date = date;
+		this.open = open;
+		this.high = high;
+		this.low = low ;
+		this.close = close;
+		this.volume = volume;
+		id  = 0;
+	}
+	
+	
 	public double getOpen() {
 		return open;
 	}
@@ -89,17 +102,6 @@ public class Point implements Comparable<Point> {
 
 
 
-	public Point(String date , double open,double high,double low ,double close,double volume) {
-		this.date = date;
-		this.open = open;
-		this.high = high;
-		this.low = low ;
-		this.close = close;
-		this.volume = volume;
-		id  = 0;
-	}
-	
-	
 	
 	
 	@Override
