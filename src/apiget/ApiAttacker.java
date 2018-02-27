@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
-
 public class ApiAttacker extends SimpleProducer<String, String> {
 
 	private String all[]={"AAPL","MSFT","GOOG","CSCO","ORCL","INTC","VOD","QCOM","AMZN","AMGN"};

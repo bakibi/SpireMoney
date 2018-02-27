@@ -52,7 +52,7 @@ public class SimpleConsumer<T,V> {
 		    while (true) {
 		      ConsumerRecords<String, String> records = SC.getConsumer().poll(100);
 		      for (ConsumerRecord<String, String> record : records) {
-		       // System.out.printf("offset = %d, value = %s", record.offset(), record.value());
+		        System.out.printf("offset = %d, value = %s", record.offset(), record.value());
 		        String pt = record.value();
 		        try {
 					JSONObject obj = new JSONObject(pt);

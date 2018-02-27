@@ -29,6 +29,8 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 		
 		if(companies == null)
 			return ;
+		companies.setId(this.Companyid);
+		System.out.println("------->"+companies);
 	    try {
 	     
 	    	 
