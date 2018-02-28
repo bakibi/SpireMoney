@@ -46,28 +46,25 @@ public class SimpleConsumer<T,V> {
 		
 		SimpleConsumer<String, String > SC = new SimpleConsumer<>("SpireMoney");
 		SC.activate();
+		//Connexion a la base de donnees
 		connexion.ConnectToMongoDb();
-		connexion.retrieve();
+		
 		
 		    while (true) {
 		      ConsumerRecords<String, String> records = SC.getConsumer().poll(100);
 		      for (ConsumerRecord<String, String> record : records) {
 		        System.out.printf("offset = %d, value = %s", record.offset(), record.value());
 		        String pt = record.value();
-		        try {
-					JSONObject obj = new JSONObject(pt);
-					String ans[] = {obj.getString("date"),
-									obj.getString("open"),
-									obj.getString("high"),
-									obj.getString("low"),
-									obj.getString("close"),
-									obj.getString("volume"),
-									obj.getString("id_company")};
-					connexion.insertPoint(ans);;
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		        /*JSONObject obj = new JSONObject(pt);
+				String ans[] = {obj.getString("date"),
+								obj.getString("open"),
+								obj.getString("high"),
+								obj.getString("low"),
+								obj.getString("close"),
+								obj.getString("volume"),
+								obj.getString("id_company")};
+				connexion.insertPoint(ans);*/
+				connexion.insertJSON(pt);
 		        System.out.println();
 		      }
 		    }

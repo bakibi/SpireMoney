@@ -19,11 +19,11 @@ public class News implements Comparable<News> {
 	
 	public String toString() {
 		return "{"
-				+ "\"link\":" + link +",\n"+
-				"\"description\":" + description +",\n"+
-				"\"date\":" + date + ",\n"+
-				"\"titre\":" + titre+",\n"+
-				 "\"Symbole\":" + Symbole +
+				+ "\"link\":\"" + link +"\","+
+				"\"description\":\"" + description +"\","+
+				"\"date\":\"" + date + "\","+
+				"\"titre\":\"" + titre+"\","+
+				 "\"Symbole\":\"" + Symbole + "\""+
 				"}";
 	}
 
