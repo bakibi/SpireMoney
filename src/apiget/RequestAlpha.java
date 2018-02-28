@@ -40,6 +40,7 @@ public class RequestAlpha  {
 	 * cette variable est nécessaire pour la verification des date avec les symbole
 	 */
 	private static Map<String,Point> registre = new TreeMap<String,Point>();
+	private static Map<String,News> registre_news = new TreeMap<String,News>();
 	private static int t = 0;	
 	
 	
@@ -104,20 +105,34 @@ public class RequestAlpha  {
 		Vector<Point> res = request(Symbole, time);
 		if(res==null)
 			return null;
+		// trier le vector par ordre decroissant de date
 		Collections.sort(res);
 		
+		if(res.size() == 0)//s'il n ya pas de resultat
+			return null;
 		
-		if(registre.containsKey(Symbole)) {
+		if(registre.containsKey(Symbole)) {//si le symbole existe dans le registre
+			
+			//on verifie si la date n'a pas changer pour le symbole
 			if(registre.get(Symbole).getDate().compareTo(res.elementAt(0).getDate()) == 0)
-				return null;
-			registre.remove(Symbole);
-			registre.put(Symbole, res.elementAt(0));
-			return res.elementAt(0);
+				return null;//si la date n'a pas changer on sort avec null
+			//si la date  a change
+			registre.remove(Symbole);//on suprime le SYmbole
+			Point p = res.elementAt(0);//on recupere le point
+			News n = requestLastNews(Symbole);//on recupere les news pour cette minute
+			if(n!=null)
+				p.addNews(n);//on ajoute la news si y en a 
+			registre.put(Symbole,p);// on ajoute le nouveau point au registre
+			return p;//on retourne le point resultant
 		}
 		else
 		{
-			registre.put(Symbole, res.elementAt(0));
-			return res.elementAt(0);
+			Point p = res.elementAt(0);//on recupere le point
+			News n = requestLastNews(Symbole);//on recupere les news pour cette minute
+			if(n!=null)
+				p.addNews(n);//on ajoute la news si y en a 
+			registre.put(Symbole,p);// on ajoute le nouveau point au registre
+			return p;//on retourne le point resultant
 		}
 	
 		
@@ -346,7 +361,6 @@ public class RequestAlpha  {
 	            {
 	            	News n = getNews(items.getJSONObject(i), Symbole);
 	            	ans.add(n);
-	            	System.out.println(n);
 	            }
 	            
 	           
@@ -356,7 +370,7 @@ public class RequestAlpha  {
 				System.out.println("Probleme de connexion a internet !");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
-				System.out.println("Probleme JSON at reqeestNews");
+				System.out.println("Probleme JSON at reqeestNews: quelque attribut sont introuvable !");
 			}
 			return ans;
 	}
@@ -388,7 +402,7 @@ public class RequestAlpha  {
 			ans = new News(link,description,a.format(newD1), titre, Symbole);
 			
 		} catch (JSONException e) {
-			System.out.println("Probleme dans getNews !");
+			System.out.println("Probleme dans getNews !:queleque attribut sont introuvables !");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -396,6 +410,43 @@ public class RequestAlpha  {
 		return ans;
 	}
 	
+	
+	 /**
+	  *  Cette fonction renvoi le dernier News d une societe donnes  
+	  * @param Symbole le symbole de la societé 
+	  * @return le dernier point ou null(en cas d'ereur)
+	  */
+	public static News requestLastNews(String Symbole) {
+		News ans = null;
+		
+		Vector<News> res = requestNews(Symbole);
+		if(res==null)
+			return null;
+		// trier le vector par ordre decroissant de date
+		Collections.sort(res);
+		
+		
+		if(res.size() == 0)
+			return null;
+		
+		if(registre_news.containsKey(Symbole)) {
+			
+			if(registre_news.get(Symbole).getDate().compareTo(res.elementAt(0).getDate()) == 0)
+				return null;
+			registre_news.remove(Symbole);
+			
+			registre_news.put(Symbole, res.elementAt(0));
+			return res.elementAt(0);
+		}
+		else
+		{
+			registre_news.put(Symbole, res.elementAt(0));
+			return res.elementAt(0);
+		}
+	
+		
+}
+
 	
 	
 }

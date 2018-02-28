@@ -1,11 +1,13 @@
 package apiget;
 
+import java.util.Vector;
+
 public class Point implements Comparable<Point> {
 	
 	private double open,high,low,close,volume;
 	private int id;
 	private String date;
-	
+	private Vector<News> news;
 
 	public Point(String date , double open,double high,double low ,double close,double volume) {
 		this.date = date;
@@ -15,6 +17,7 @@ public class Point implements Comparable<Point> {
 		this.close = close;
 		this.volume = volume;
 		id  = 0;
+		news = new Vector<News>();
 	}
 	
 	
@@ -22,7 +25,9 @@ public class Point implements Comparable<Point> {
 		return open;
 	}
 
-
+	public boolean addNews(News n) {
+		return news.add(n);
+	}
 
 
 	public void setOpen(double open) {
@@ -115,7 +120,14 @@ public class Point implements Comparable<Point> {
 			ans+="\"close\":\""+close+"\",";
 			ans+="\"volume\":\""+volume+"\",";
 			ans+="\"id_company\":\""+id+"\"";
-			ans+="}";
+			ans+="\"news\":[";
+			for(int i=0;i<news.size();i++)
+			{
+				ans+=news.get(i);
+				if(i!=(news.size()-1))
+					ans+=",";
+			}
+			ans+="]}";
 		return ans;
 	}
 

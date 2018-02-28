@@ -22,6 +22,7 @@ public class Application {
 		app.attack_per_minute();*/
 		
 			RequestAlpha.requestNews("AAPL");
+			RequestAlpha.requestLastNews("dsfs");
 		
 	}
 

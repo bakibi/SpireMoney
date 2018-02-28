@@ -1,6 +1,6 @@
 package apiget;
 
-public class News {
+public class News implements Comparable<News> {
 	//atribut
 	
 	
@@ -85,6 +85,14 @@ public class News {
 
 	public void setSymbole(String symbole) {
 		Symbole = symbole;
+	}
+
+
+
+	@Override
+	public int compareTo(News o) {
+		return getDate().compareTo(o.getDate())*-1;
+		
 	}
 
 }
