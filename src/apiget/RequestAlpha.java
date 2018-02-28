@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -17,8 +20,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 
 
 /**
@@ -310,6 +315,86 @@ public class RequestAlpha  {
 		
 	}
 	
+	
+	/**
+	 *  cette fonction  renvoi tout les news par rapport à une societé donnée
+	 * @param Symbole le symbole de la societe
+	 */
+	public static Vector<News> requestNews(String Symbole) {
+		Vector<News> ans = new Vector<News>();
+		String uri = "https://feeds.finance.yahoo.com/rss/2.0/headline?s="+Symbole+"&region=US&lang=en-US";
+		URL a;
+		
+			try {
+				a = new URL(uri);
+				URLConnection yc = a.openConnection();
+				BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+				String all = "";
+				String lu;
+				
+				while((lu = in.readLine())!=null)
+					all+=lu+"\n";
+				
+				JSONObject obj = XML.toJSONObject(all);
+	            String jsonPrettyPrintString = obj.toString();
+	            JSONObject rss = obj.getJSONObject("rss");
+	            JSONObject channel = rss.getJSONObject("channel");
+	            JSONArray items = channel.getJSONArray("item");
+	            
+	            int t = items.length();
+	            for(int i=0;i<t;i++)
+	            {
+	            	News n = getNews(items.getJSONObject(i), Symbole);
+	            	ans.add(n);
+	            	System.out.println(n);
+	            }
+	            
+	           
+				//System.out.println(all);
+			} catch ( IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Probleme de connexion a internet !");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Probleme JSON at reqeestNews");
+			}
+			return ans;
+	}
+	
+	
+	
+	/**
+	 *  Cette methode nous permet de tranformer un objet JSon en un objet News
+	 * @param obj l objet json
+	 * @param Symbole le symbole de la societe en question
+	 * @return une news ou null (en cas d erreur)
+	 */
+	private static News getNews(JSONObject obj, String Symbole) {
+		News ans = null;
+		String link,description,date,titre;
+		SimpleDateFormat a = new SimpleDateFormat("YYYY-MM-dd HH:mm:00");
+		DateFormat df6 = new SimpleDateFormat("E, MMM dd yyyy HH:mm:ss");
+		try {
+			link = obj.getString("link");
+			description = obj.getString("description");
+			titre = obj.getString("title");
+			date = obj.getString("pubDate");
+			String day = date.substring(0, 3);
+			String nM  = date.substring(5, 7);
+			String M = date.substring(8	, 11);
+			String y = date.substring(12, 25);
+			String newD = day+", "+M+" "+nM+" "+y;
+			Date newD1 = df6.parse(newD);
+			ans = new News(link,description,a.format(newD1), titre, Symbole);
+			
+		} catch (JSONException e) {
+			System.out.println("Probleme dans getNews !");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ans;
+	}
 	
 	
 	
