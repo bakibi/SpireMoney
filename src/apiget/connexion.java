@@ -20,7 +20,12 @@ public class connexion {
 	
 	public static void insertJSON(String obj)
 	{
-		col.insert((DBObject) JSON.parse(obj));	
+		try {
+			col.insert((DBObject) JSON.parse(obj));	
+		} catch(Exception e) {
+			System.out.println("none");
+		}
+		
 	}
 	public static void  retrieve()
 	{

@@ -21,10 +21,6 @@ public class Application {
 		ApiAttacker app = new ApiAttacker("SpireMoney");
 		app.attack_per_minute();
 		
-			//RequestAlpha.requestNews("AAPL");
-		//System.out.println(RequestAlpha.requestLastNews("AAPL"));	
-		//RequestAlpha.requestLastNews("AAPL");
-		
 	}
 
 }
