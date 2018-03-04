@@ -118,16 +118,8 @@ public class Point implements Comparable<Point> {
 			ans+="\"high\":\""+high+"\",";
 			ans+="\"low\":\""+low+"\",";
 			ans+="\"close\":\""+close+"\",";
-			ans+="\"volume\":\""+volume+"\",";
-			ans+="\"id_company\":\""+id+"\",";
-			ans+="\"news\":[";
-			for(int i=0;i<news.size();i++)
-			{
-				ans+=news.get(i);
-				if(i!=(news.size()-1))
-					ans+=",";
-			}
-			ans+="]}";
+			ans+="\"volume\":\""+volume+"\"";
+			ans+="}";
 		return ans;
 	}
 

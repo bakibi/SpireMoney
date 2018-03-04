@@ -21,7 +21,7 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 		this.timeDuration = timeDuration;
 		this.topicName = topicName;
 	}
-	
+/*	
 	@Override
 	public void run() {
 		
@@ -31,12 +31,35 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 			return ;
 		companies.setId(this.Companyid);
 		System.out.println("------->"+companies);
+		
+		
 	    try {
 	     
-	    	 
-	    	companies.setId(this.Companyid);
 	    	  String msg = companies+"";
 	    	  this.prod.send(new ProducerRecord<U, V>(topicName, (V) msg));
+	      
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+		
+	}
+*/
+	
+	@Override
+	public void run() {
+		
+		Message companies = RequestAlpha.requestLastMessage(this.nameCompany, this.timeDuration);	
+		
+		if(companies == null)
+			return ;
+		companies.setId(this.Companyid);
+		System.out.println("------->"+companies);
+		
+		
+	    try {
+	     
+	    	  String msg = companies+"";
+	    	 // this.prod.send(new ProducerRecord<U, V>(topicName, (V) msg));
 	      
 	    } catch (Exception e) {
 	      e.printStackTrace();

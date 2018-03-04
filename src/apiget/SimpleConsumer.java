@@ -55,16 +55,8 @@ public class SimpleConsumer<T,V> {
 		      for (ConsumerRecord<String, String> record : records) {
 		        System.out.printf("offset = %d, value = %s", record.offset(), record.value());
 		        String pt = record.value();
-		        /*JSONObject obj = new JSONObject(pt);
-				String ans[] = {obj.getString("date"),
-								obj.getString("open"),
-								obj.getString("high"),
-								obj.getString("low"),
-								obj.getString("close"),
-								obj.getString("volume"),
-								obj.getString("id_company")};
-				connexion.insertPoint(ans);*/
-				connexion.insertJSON(pt);
+		        
+				//connexion.insertJSON(pt);
 		        System.out.println();
 		      }
 		    }

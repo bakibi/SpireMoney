@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -103,13 +104,15 @@ public class RequestAlpha  {
 		Point ans = null;
 		
 		Vector<Point> res = request(Symbole, time);
+		
 		if(res==null)
 			return null;
-		// trier le vector par ordre decroissant de date
-		Collections.sort(res);
-		
+
 		if(res.size() == 0)//s'il n ya pas de resultat
 			return null;
+		
+		// trier le vector par ordre decroissant de date
+		Collections.sort(res);
 		
 		if(registre.containsKey(Symbole)) {//si le symbole existe dans le registre
 			
@@ -119,18 +122,18 @@ public class RequestAlpha  {
 			//si la date  a change
 			registre.remove(Symbole);//on suprime le SYmbole
 			Point p = res.elementAt(0);//on recupere le point
-			News n = requestLastNews(Symbole);//on recupere les news pour cette minute
-			if(n!=null)
-				p.addNews(n);//on ajoute la news si y en a 
+			//News n = requestLastNews(Symbole);//on recupere les news pour cette minute
+			//if(n!=null)
+				//p.addNews(n);//on ajoute la news si y en a 
 			registre.put(Symbole,p);// on ajoute le nouveau point au registre
 			return p;//on retourne le point resultant
 		}
 		else
 		{
 			Point p = res.elementAt(0);//on recupere le point
-			News n = requestLastNews(Symbole);//on recupere les news pour cette minute
-			if(n!=null)
-				p.addNews(n);//on ajoute la news si y en a 
+			//News n = requestLastNews(Symbole);//on recupere les news pour cette minute
+			//if(n!=null)
+				//p.addNews(n);//on ajoute la news si y en a 
 			registre.put(Symbole,p);// on ajoute le nouveau point au registre
 			return p;//on retourne le point resultant
 		}
@@ -189,7 +192,8 @@ public class RequestAlpha  {
 				while(keys.hasNext()) {
 					 date =(String)keys.next(); 
 					 Point unPoint = getPoint(obj1.getJSONObject(date), date);
-					ans.add(unPoint);
+					 if(unPoint !=null)
+						 ans.add(unPoint);
 				}
 				
 				
@@ -273,7 +277,7 @@ public class RequestAlpha  {
 			// TODO Auto-generated catch block
 			System.out.println("Probleme de connexion internet");
 		}
-		
+		System.out.println(ans.size());
 		Vector<Point> all = new Vector<Point>();
 		Collections.sort(ans);
 		long limit = ans.size();
@@ -314,7 +318,20 @@ public class RequestAlpha  {
 	 */
 	private static Point getPoint(JSONObject obj,String date) throws JSONException {
 		Point p = null;
-		
+		DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:00");
+		try {
+			Date dd = format.parse(date);
+			TimeZone usTimeZone = TimeZone.getTimeZone("America/New_York");
+			format.setTimeZone(usTimeZone);
+			Date Us_dat = new Date();
+			System.out.println(Us_dat);
+			if(!(dd.getYear() == Us_dat.getYear() &&
+					dd.getMonth() == Us_dat.getMonth() &&
+					dd.getDay() == Us_dat.getDay())) return null;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String open = obj.getString("1. open");
 		String high = obj.getString("2. high");
 		String low = obj.getString("3. low");
@@ -443,9 +460,27 @@ public class RequestAlpha  {
 			registre_news.put(Symbole, res.elementAt(0));
 			return res.elementAt(0);
 		}
+		
 	
 		
 }
+	 /**
+	  *  Cette fonction renvoi Un meg contenant le dernier Point et News d une societe 
+	  * @param Symbole le symbole de la societé 
+	  * @return le dernier point ou null(en cas d'ereur)
+	  */
+	public static Message requestLastMessage(String Symbole,String time) {
+		Message m = new Message(Symbole);
+		
+		Point p= requestLast(Symbole, time);
+		News n= requestLastNews(Symbole);
+		if(p!=null)
+			m.addPoint(p);
+		if(n!=null)
+			m.addNews(n);
+				
+		return m;
+	}
 
 	
 	
