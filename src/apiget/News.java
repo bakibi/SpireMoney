@@ -1,5 +1,8 @@
 package apiget;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class News implements Comparable<News> {
 	//atribut
 	
@@ -18,11 +21,19 @@ public class News implements Comparable<News> {
 	
 	
 	public String toString() {
-		return "{"
-				+ "\"link\":\"" + link +"\","+
-				"\"date\":\"" + date + "\","+
-				"\"titre\":\"" + titre+"\""+
-				"}";
+		
+		
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("link",""+link);
+			obj.put("date", ""+date);
+			obj.put(titre, ""+titre);
+			return obj.toString();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "{}";
 	}
 
 

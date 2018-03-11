@@ -57,7 +57,7 @@ public class SimpleConsumer<T,V> {
 		        String pt = record.value();
 		        
 				//connexion.insertJSON(pt);
-		        System.out.println();
+		        System.out.println(pt);
 		      }
 		    }
 		 

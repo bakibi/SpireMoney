@@ -1,5 +1,6 @@
 package apiget;
 
+import java.awt.AlphaComposite;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -324,10 +325,10 @@ public class RequestAlpha  {
 			TimeZone usTimeZone = TimeZone.getTimeZone("America/New_York");
 			format.setTimeZone(usTimeZone);
 			Date Us_dat = new Date();
-			System.out.println(Us_dat);
-			if(!(dd.getYear() == Us_dat.getYear() &&
+			
+			/*if(!(dd.getYear() == Us_dat.getYear() &&
 					dd.getMonth() == Us_dat.getMonth() &&
-					dd.getDay() == Us_dat.getDay())) return null;
+					dd.getDay() == Us_dat.getDay())) return null;*/
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -448,8 +449,9 @@ public class RequestAlpha  {
 		
 		if(registre_news.containsKey(Symbole)) {
 			
-			if(registre_news.get(Symbole).getDate().compareTo(res.elementAt(0).getDate()) == 0)
+			if(registre_news.get(Symbole).getDate().compareTo(res.elementAt(0).getDate()) <= 0)
 				return null;
+			
 			registre_news.remove(Symbole);
 			
 			registre_news.put(Symbole, res.elementAt(0));
@@ -482,6 +484,30 @@ public class RequestAlpha  {
 		return m;
 	}
 
+	
+	public static Message requestLastMessageG(String Symbole,String time) {
+		Message m = new Message(Symbole);
+		DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		Point p= new Point(format.format(new Date()),170 +Math.random()*3,175 + Math.random()*5,168 +Math.random()*3,170 + Math.random()*4,(long)(Math.random()*100000));
+		
+		Vector<News> aa = requestNews(Symbole);
+		//News n= new News("http://www.google.com","Bonjour ceci est un "+Symbole,format.format(new Date()),"titre"+Symbole,Symbole); 
+		News n = null;
+		int t  = (int)(Math.random()*100);
+		if(t%2 == 0) {
+			n = aa.get((int)(aa.size()*Math.random()));
+			n.setDate(format.format(new Date()));
+		}
+		
+		if(p!=null)
+			m.addPoint(p);
+		if(n!=null)
+			m.addNews(n);
+				
+		return m;
+	}
+
+	
 	
 	
 }

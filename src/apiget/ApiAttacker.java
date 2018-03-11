@@ -12,7 +12,35 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  */
 public class ApiAttacker extends SimpleProducer<String, String> {
 
-	private String all[]={"AAPL","MSFT","GOOG","CSCO","ORCL","INTC","VOD","QCOM","AMZN","AMGN"};
+	private String all[]={"AAPL",
+							"GOOGL",
+							"MSFT",
+							"FB",
+							"INTC",
+							"ORCL",
+							"CSCO",
+							"NVDA",
+							"IBM",
+							"ADBE",
+							"TXN",
+							"AVGO",
+							"VMW",
+							"HPQ",
+							"EA",
+							"NOK",
+							"ADSK",
+							"WDC",
+							"RHT",
+							"TWTR",
+							"SNAP",
+							"CERN",
+							"SWKS",
+							"MSI",
+							"NTAP",
+							"OMC",
+							"DVMT",
+							"ANSS",
+							"IPGP"};
 	private String topicName;
 	public ApiAttacker(String topicName) {
 		this.topicName = topicName;
@@ -22,6 +50,7 @@ public class ApiAttacker extends SimpleProducer<String, String> {
 	
 	public void attack_one_time() {
 		Thread t;
+		
 		for(int companyId=0;companyId<all.length;companyId++) {
 			t = new Thread(new ApiAttackerTuple<>(getProducer(), all[companyId], companyId, "1min", topicName));
 			t.start();
@@ -35,7 +64,7 @@ public class ApiAttacker extends SimpleProducer<String, String> {
 		while(true) {
 			this.attack_one_time();
 			try {
-				Thread.sleep(20000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

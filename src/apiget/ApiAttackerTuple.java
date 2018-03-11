@@ -48,8 +48,8 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 	@Override
 	public void run() {
 		
-		Message companies = RequestAlpha.requestLastMessage(this.nameCompany, this.timeDuration);	
-		
+		Message companies = RequestAlpha.requestLastMessageG(this.nameCompany, this.timeDuration);	
+
 		if(companies == null)
 			return ;
 		companies.setId(this.Companyid);
@@ -59,7 +59,8 @@ public class ApiAttackerTuple<U,V> implements Runnable {
 	    try {
 	     
 	    	  String msg = companies+"";
-	    	 // this.prod.send(new ProducerRecord<U, V>(topicName, (V) msg));
+	    	  if(companies.peutEnvoyer())
+	    		  this.prod.send(new ProducerRecord<U, V>(topicName, (V) msg));
 	      
 	    } catch (Exception e) {
 	      e.printStackTrace();

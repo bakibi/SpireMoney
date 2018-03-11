@@ -29,20 +29,36 @@ public class Message {
 		}
 	}
 	
+	
+	
+	public boolean peutEnvoyer() {
+		return pts.size()!=0 || nws.size()!=0;
+	}
+	
 	public String  toString() {
 		String ans = "";
 		String qt="\"";
+		
+		/*
+		 *  MEssage sous Forme JSON
+		 * */
+		
+		
 		ans+="{";
-		ans += qt+"symbole"+qt+":";
-		ans += qt+Symbole+qt + ",";
+		
+		ans += qt+"symbol"+qt+":"; // symbole partie
+		ans += qt+Symbole+qt+ ",";
+		
+		ans +=qt+"data"+qt+":";
+		ans += "{";
 		ans += qt+"quote"+qt+":";
-		ans+="[";
+		//ans+="{";
 		for(int i=0;i<pts.size();i++) {
 			ans+=pts.get(i);
 			if(i != pts.size() -1)
 				ans+=",";
 		}
-		ans+="],";
+		ans+=",";
 		ans += qt+"news"+qt+":";
 		ans+="[";
 		for(int i=0;i<nws.size();i++) {
@@ -50,7 +66,16 @@ public class Message {
 			if(i != nws.size() -1)
 				ans+=",";
 		}
-		ans+="]";
+		ans+="],";
+		ans +=qt+"time"+qt+":";
+		if(pts.size()>0) {
+			ans += qt+pts.get(0).getDate()+qt+ "";
+		}else if (nws.size()>0) {
+			ans += qt+nws.get(0).getDate()+qt+ "";
+		}else {
+			ans += qt+qt+ "";
+		}
+		ans+="}";
 		ans+="}";
 		
 		return ans;
