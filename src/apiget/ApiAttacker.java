@@ -40,7 +40,8 @@ public class ApiAttacker extends SimpleProducer<String, String> {
 							"OMC",
 							"DVMT",
 							"ANSS",
-							"IPGP"};
+							"IPGP",
+                             "IXIC"};
 	private String topicName;
 	public ApiAttacker(String topicName) {
 		this.topicName = topicName;
