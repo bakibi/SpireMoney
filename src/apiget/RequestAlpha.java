@@ -488,13 +488,14 @@ public class RequestAlpha  {
 	public static Message requestLastMessageG(String Symbole,String time) {
 		Message m = new Message(Symbole);
 		DateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-		Point p= new Point(format.format(new Date()),170 +Math.random()*3,175 + Math.random()*5,168 +Math.random()*3,170 + Math.random()*4,(long)(Math.random()*100000));
+		Point p= new Point(format.format(new Date()),170 +Math.random()*30,175 + Math.random()*50,168 +Math.random()*30,170 + Math.random()*40,(long)(Math.random()*100000));
 		
 		Vector<News> aa = requestNews(Symbole);
 		//News n= new News("http://www.google.com","Bonjour ceci est un "+Symbole,format.format(new Date()),"titre"+Symbole,Symbole); 
 		News n = null;
-		int t  = (int)(Math.random()*100);
-		if(t%2 == 0) {
+		double t  = (Math.random()*100);
+		if(t<0.6 && aa!=null && aa.size()!=0) {
+			
 			n = aa.get((int)(aa.size()*Math.random()));
 			n.setDate(format.format(new Date()));
 		}

@@ -27,7 +27,7 @@ public class News implements Comparable<News> {
 		try {
 			obj.put("link",""+link);
 			obj.put("date", ""+date);
-			obj.put(titre, ""+titre);
+			obj.put("titre", ""+titre);
 			return obj.toString();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
